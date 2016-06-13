@@ -36,7 +36,7 @@ install:
   - sudo git clone https://github.com/rust-lang/cargo.git
   - cd cargo
   - sudo python -B src/etc/install-deps.py
-  - ./configure --local-rust-root="$PWD"/rustc
+  - ./configure --local-rust-root="$PWD"/rustc --target=x86_64-unknown-linux-gnu
   - make
   - sudo make install
   - sudo pgxn install jsoncdc --unstable
