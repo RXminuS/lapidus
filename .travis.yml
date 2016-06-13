@@ -33,11 +33,11 @@ before_install:
 install:
   - sudo apt-get install -y postgresql-common postgresql-$PGVERSION postgresql-client-$PGVERSION  postgresql-contrib-$PGVERSION postgresql-server-dev-$PGVERSION python-setuptools
   - sudo easy_install pgxnclient
-  - sudo git clone https://github.com/rust-lang/cargo.git
+  - git clone --recursive https://github.com/rust-lang/cargo
   - cd cargo
   - sudo python -B src/etc/install-deps.py
-  - ./configure --local-rust-root="$PWD"/rustc --target=x86_64-unknown-linux-gnu
-  - make
+  - sudo ./configure --local-rust-root="$PWD"/rustc
+  - sudo make
   - sudo make install
   - sudo pgxn install jsoncdc --unstable
 
