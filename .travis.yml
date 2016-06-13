@@ -31,7 +31,8 @@ before_install:
   - sudo rm -rf /var/lib/postgresql
 
 install:
-  - sudo apt-get install -y postgresql-common postgresql-$PGVERSION postgresql-client-$PGVERSION  postgresql-contrib-$PGVERSION postgresql-server-dev-$PGVERSION
+  - sudo apt-get install -y postgresql-common postgresql-$PGVERSION postgresql-client-$PGVERSION  postgresql-contrib-$PGVERSION postgresql-server-dev-$PGVERSION python-setuptools
+  - sudo pgxn install jsoncdc --unstable
 
 before_script:
   - sudo bash -c "cat test/config/bin-log.cnf >> /etc/mysql/conf.d/bin-log.cnf"
@@ -51,11 +52,6 @@ before_script:
   - ${PWD}/mongodb-linux-x86_64-3.0.4/bin/mongo lapidus --eval 'db.createUser({user:"walt",pwd:"EnlmLSvK6XeneMKZOhXGEnNtvUgHtuFV2ZZi",roles:[{role:"clusterAdmin",db:"admin"},{role:"readAnyDatabase",db:"admin"},"readWrite"]});'
   - sudo service mysql stop
   - sudo service postgresql stop
-  - git clone https://github.com/leptonix/decoding-json.git
-  - cd decoding-json/
-  - make
-  - sudo make install
-  - cd ..
   - sudo service postgresql start
   - sudo service mysql start
   - sudo service mysql status
