@@ -30,7 +30,6 @@ before_install:
   - sudo rm -rf /etc/postgresql
   - sudo rm -rf /var/lib/postgresql
   - sudo apt-get update -y
-  - sudo apt-get upgrade -y
 
 install:
   - sudo apt-get install -y postgresql-common postgresql-$PGVERSION postgresql-client-$PGVERSION  postgresql-contrib-$PGVERSION postgresql-server-dev-$PGVERSION python-setuptools cargo-stable rust-stable
