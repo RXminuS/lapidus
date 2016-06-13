@@ -22,6 +22,7 @@ notifications:
 before_install:
   - wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
   - sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ precise-pgdg main 9.5" >> /etc/apt/sources.list.d/postgresql.list'
+  - sudo add-apt-repository ppa:hansjorg/rust/ubuntu
   - sudo apt-get update -qq
   - sudo update-alternatives --remove-all postmaster.1.gz
   - sudo service postgresql stop
@@ -31,15 +32,8 @@ before_install:
   - sudo rm -rf /var/lib/postgresql
 
 install:
-  - sudo apt-get install -y postgresql-common postgresql-$PGVERSION postgresql-client-$PGVERSION  postgresql-contrib-$PGVERSION postgresql-server-dev-$PGVERSION python-setuptools
+  - sudo apt-get install -y postgresql-common postgresql-$PGVERSION postgresql-client-$PGVERSION  postgresql-contrib-$PGVERSION postgresql-server-dev-$PGVERSION python-setuptools cargo-stable rust-stable
   - sudo easy_install pgxnclient
-  - git clone --recursive https://github.com/rust-lang/cargo
-  - cd cargo
-  - sudo python -B src/etc/install-deps.py
-  - sudo ./configure --local-rust-root="$PWD"/rustc
-  - sudo make
-  - sudo make install
-  - sudo pgxn install jsoncdc --unstable
 
 before_script:
   - sudo bash -c "cat test/config/bin-log.cnf >> /etc/mysql/conf.d/bin-log.cnf"
